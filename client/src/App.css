@@ -1,0 +1,67 @@
+/* App.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  font-family: Arial, sans-serif; /* Simple font style */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4vw; /* Increased padding for better spacing */
+}
+
+.AddingPassword {
+  background-color: #1e1e1e; /* Soothing color */
+  border-radius: 10px;
+  padding: 4vw 6vw;
+  width: 70vw; /* Wider width for better visibility */
+  max-width: 600px; /* Larger max-width for better fit on larger screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.AddingPassword .Title h3 {
+  font-size: 2.5vw; /* Adjust font size for better readability */
+  margin-bottom: 3vh;
+  color: white; /* Darker color for the heading */
+}
+
+.AddingPassword input {
+  width: 100%;
+  padding: 1.5vw;
+  margin: 0.75vh 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 2vw;
+}
+
+.AddingPassword button {
+  width: 100%;
+  padding: 1.5vw;
+  margin: 0.75vh 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 2vw;
+  color: white;
+  background-color: #0044cc; /* Darkish blue */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.AddingPassword button:hover {
+  background-color: #0033aa; /* Slightly darker blue on hover */
+}
+
+.AddingPassword button:active {
+  background-color: #002299; /* Even darker blue when pressed */
+}
+
+.AddingPassword a {
+  text-decoration: none;
+}
