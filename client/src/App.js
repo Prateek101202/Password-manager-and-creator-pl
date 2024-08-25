@@ -28,41 +28,50 @@ function PasswordManager() {
         alert("An error occurred while adding the password. Please try again later.");
       });
   };
-  
+
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
-    navigate("/login"); // Use navigate to redirect to the login page
+    // let ans=confirm("Are you sure you want to log out?");
+    // if (ans) {
+      localStorage.removeItem("username");
+      navigate("/login"); // Use navigate to redirect to the login page
+    // }
   };
 
   return (
-    <div className="App">
-      <div className="AddingPassword">
-        <div className="Title">
-          <h3>Enter the password and the designation</h3>
+    <>
+      <video autoPlay muted loop id="backgroundVideo">
+        <source src="/websiteBackground.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="App">
+        <div className="AddingPassword">
+          <div className="Title">
+            <h3>Enter the password and the designation</h3>
+          </div>
+          <input
+            type="text"
+            placeholder="Ex. password123"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Ex. Facebook"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+          <button onClick={addPassword}>Add Password</button>
+          <Link to="/show-saved-passwords">
+            <button>Show Saved Passwords</button>
+          </Link>
+          <Link to="/create-strong-password">
+            <button>Create Password</button>
+          </Link>
+          <button onClick={handleLogout}>Logout</button>
         </div>
-        <input
-          type="text"
-          placeholder="Ex. password123"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Ex. Facebook"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-        <button onClick={addPassword}>Add Password</button>
-        <Link to="/show-saved-passwords">
-          <button>Show Saved Passwords</button>
-        </Link>
-        <Link to="/create-strong-password">
-          <button>Create Password</button>
-        </Link>
-        <button onClick={handleLogout}>Logout</button>
       </div>
-    </div>
+    </>
   );
 }
 

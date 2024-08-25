@@ -1,61 +1,124 @@
-/* login.css */
-
 body {
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif; /* Simple font style */
-  }
-  
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: white;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+#backgroundVideo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  object-fit: cover;
+}
+
+.login-container {
+  z-index: 1;
+  background-color: rgba(30, 30, 30, 0.6); /* Reduce opacity to show more of the video */
+  border-radius: 10px;
+  padding: 4vw 6vw;
+  width: 50vw;  /* Reduced width for better visibility of the video */
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+  font-size: 3vw;
+  margin-bottom: 3vh;
+  color: #f0f0f0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.login-container input {
+  width: 100%;
+  padding: 1.5vw;
+  margin: 0.75vh 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 1.5vw;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.login-container input::placeholder {
+  color: #ddd;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 1.5vw;
+  margin: 0.75vh 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 2vw;
+  color: white;
+  background: linear-gradient(145deg, #ff6f61, #ff4b3e);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.login-container button:hover {
+  background: linear-gradient(145deg, #ff4b3e, #ff3a2e);
+  transform: scale(1.05);
+}
+
+.login-container button:active {
+  background: #ff2a1e;
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
   .login-container {
-    background-color: #1e1e1e; /* Soothing color */
-    border-radius: 10px;
-    padding: 4vw 6vw;
-    color: white;
-    width: 60vw; /* Wider width for better visibility */
-    max-width: 600px; /* Larger max-width for better fit on larger screens */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: 70vw;
+    padding: 3vw 4vw;
+    background-color: rgba(0, 0, 0, 0.5); /* Further reduce opacity on smaller screens */
   }
-  
+
   .login-container h2 {
-    font-size: 3.5vw; /* Adjust font size for better readability */
-    margin-bottom: 3vh;
+    font-size: 4.5vw;
   }
-  
-  .login-container input {
-    width: 100%;
-    padding: 1.5vw;
-    margin: 0.75vh 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1.5vw;
-  }
-  
+
+  .login-container input,
   .login-container button {
-    width: 100%;
-    padding: 1.5vw;
-    margin: 0.75vh 0;
-    border: none;
-    border-radius: 5px;
     font-size: 2.5vw;
-    color: white;
-    background-color: #0044cc; /* Darkish blue */
-    cursor: pointer;
-    transition: background-color 0.3s;
   }
-  
-  .login-container button:hover {
-    background-color: #0033aa; /* Slightly darker blue on hover */
+
+  #backgroundVideo {
+    width: 150%;
+    height: auto;
   }
-  
-  .login-container button:active {
-    background-color: #002299; /* Even darker blue when pressed */
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    width: 80vw;
+    padding: 3vw 3vw;
+    background-color: rgba(0, 0, 0, 0.4); /* Even lighter on very small screens */
   }
-  
+
+  .login-container h2 {
+    font-size: 6vw;
+  }
+
+  .login-container input,
+  .login-container button {
+    font-size: 3.5vw;
+  }
+
+  #backgroundVideo {
+    width: 150%;
+    height: auto;
+  }
+}

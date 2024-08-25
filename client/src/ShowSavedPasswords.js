@@ -9,34 +9,34 @@ function ShowSavedPasswords() {
 
   useEffect(() => {
     const fetchPasswords = async () => {
-        try {
-          const userID = localStorage.getItem('username');
-          const response = await Axios.get(`http://localhost:3001/passwords/${userID}`);
-          
-          if (response.data.success) {
-            setPasswords(response.data.passwords);
-          } else {
-            alert(response.data.message);
-          }
-        } catch (error) {
-          console.error('Error fetching passwords:', error);
-          alert("An error occurred while fetching passwords.");
+      try {
+        const userID = localStorage.getItem('username');
+        const response = await Axios.get(`http://localhost:3001/passwords/${userID}`);
+
+        if (response.data.success) {
+          setPasswords(response.data.passwords);
+        } else {
+          alert(response.data.message);
         }
-      };
-    
-      fetchPasswords();
+      } catch (error) {
+        console.error('Error fetching passwords:', error);
+        alert("An error occurred while fetching passwords.");
+      }
+    };
+
+    fetchPasswords();
   }, [username]);
-  
+
 
   const deletePassword = (id) => {
     if (!id) {
       console.error('ID is not defined');
       return;
     }
-  
+
     // Show confirmation dialog
     const confirmDelete = window.confirm("Are you sure you want to delete this password?");
-    
+
     if (confirmDelete) {
       // Proceed with deletion if confirmed
       Axios.delete(`http://localhost:3001/deletepassword/${id}`)
@@ -57,30 +57,36 @@ function ShowSavedPasswords() {
       console.log("Password deletion canceled.");
     }
   };
-  
-  
-  
-  
+
+
+
+
 
 
 
   return (
-    <div className="ShowSavedPasswords">
-      <h2>Saved Passwords</h2>
-      {passwords.length > 0 ? (
-        passwords.map((password) => (
-          <div key={password.ID} className="passwordItem">
-            <p>Title: {password.title}</p>
-            <p>Password: {password.password}</p>
-            <button onClick={() => deletePassword(password.ID)}>Delete</button>
+    <>
+      <video autoPlay muted loop id="backgroundVideo">
+        <source src="/websiteBackground.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="ShowSavedPasswords">
+        <h2>Saved Passwords</h2>
+        {passwords.length > 0 ? (
+          passwords.map((password) => (
+            <div key={password.ID} className="passwordItem">
+              <p>Title: {password.title}</p>
+              <p>Password: {password.password}</p>
+              <button onClick={() => deletePassword(password.ID)}>Delete</button>
 
-          </div>
-        ))
-      ) : (
-        <p>No saved passwords found.</p>
-      )}
-      <button onClick={() => navigate("/password-manager")}>Go Back to Main Page</button>
-    </div>
+            </div>
+          ))
+        ) : (
+          <p>No saved passwords found.</p>
+        )}
+        <button className="back-button" onClick={() => navigate("/password-manager")}>Go to Main Page</button>
+      </div>
+    </>
   );
 }
 

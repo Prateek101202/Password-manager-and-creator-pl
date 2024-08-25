@@ -3,42 +3,60 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
-  font-family: Arial, sans-serif; /* Simple font style */
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#backgroundVideo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 4vw; /* Increased padding for better spacing */
-}
-
-.AddingPassword {
-  background-color: #1e1e1e; /* Soothing color */
-  border-radius: 10px;
+  z-index: 1;
+  width: 60vw;
+  max-width: 600px;
   padding: 4vw 6vw;
-  width: 70vw; /* Wider width for better visibility */
-  max-width: 600px; /* Larger max-width for better fit on larger screens */
+  background-color: rgba(30, 30, 30, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
-.AddingPassword .Title h3 {
-  font-size: 2.5vw; /* Adjust font size for better readability */
+.AddingPassword h3 {
+  font-size: 3vw;
   margin-bottom: 3vh;
-  color: white; /* Darker color for the heading */
+  color: #f0f0f0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-align: center;
 }
 
 .AddingPassword input {
   width: 100%;
   padding: 1.5vw;
   margin: 0.75vh 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 2vw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 1.5vw;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.AddingPassword input::placeholder {
+  color: #ccc;
 }
 
 .AddingPassword button {
@@ -46,22 +64,58 @@ body {
   padding: 1.5vw;
   margin: 0.75vh 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 2vw;
   color: white;
-  background-color: #0044cc; /* Darkish blue */
+  background: linear-gradient(145deg, #e74c3c, #c0392b); /* Gradient button background in red tones */
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s, transform 0.2s ease-in-out;
 }
 
 .AddingPassword button:hover {
-  background-color: #0033aa; /* Slightly darker blue on hover */
+  background: linear-gradient(145deg, #c0392b, #a93226);
+  transform: scale(1.05);
 }
 
 .AddingPassword button:active {
-  background-color: #002299; /* Even darker blue when pressed */
+  background: #922b21;
+  transform: scale(0.98);
 }
 
-.AddingPassword a {
-  text-decoration: none;
+@media (max-width: 768px) {
+  .App {
+    width: 80vw;
+  }
+
+  .AddingPassword h3 {
+    font-size: 4.5vw;
+  }
+
+  .AddingPassword input,
+  .AddingPassword button {
+    font-size: 2.5vw;
+  }
+  #backgroundVideo {
+    width: 150%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    width: 90vw;
+  }
+
+  .AddingPassword h3 {
+    font-size: 6vw;
+  }
+
+  .AddingPassword input,
+  .AddingPassword button {
+    font-size: 3.5vw;
+  }
+  #backgroundVideo {
+    width: 150%;
+    height: auto;
+  }
 }

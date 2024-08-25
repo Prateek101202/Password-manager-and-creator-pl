@@ -24,11 +24,14 @@ app.post('/login', async (req, res) => {
 
   try {
     const [rows] = await pool.query('SELECT * FROM users WHERE userID = ? AND entryPass = ?', [userID, entryPass]);
-
+    const [rows2] = await pool.query('SELECT * FROM users WHERE userID = ?', [userID]);
     if (rows.length > 0) {
       res.json({ success: true });
     } else {
-      res.json({ success: false, message: "Invalid username or password" });
+      if (rows2.length == 0) res.json({ success: false, message: "User does not exist. Please sign up." });
+      else {
+        res.json({ success: false, message: "Invalid username or password" });
+      }
     }
   } catch (error) {
     console.error('Error logging in:', error);
@@ -39,19 +42,21 @@ app.post('/login', async (req, res) => {
 // Signup route
 app.post('/signup', async (req, res) => {
   const { userID, entryPass } = req.body;
+  if (userID.length == 0) res.json({ success: false, message: "Please enter valid Username and Password." });
+  else {
+    try {
+      const [existingUser] = await pool.query('SELECT * FROM users WHERE userID = ?', [userID]);
 
-  try {
-    const [existingUser] = await pool.query('SELECT * FROM users WHERE userID = ?', [userID]);
-
-    if (existingUser.length > 0) {
-      res.json({ success: false, message: "User already exists. Please Log in." });
-    } else {
-      await pool.query('INSERT INTO users (userID, entryPass) VALUES (?, ?)', [userID, entryPass]);
-      res.json({ success: true });
+      if (existingUser.length > 0) {
+        res.json({ success: false, message: "User already exists. Please Log in." });
+      } else {
+        await pool.query('INSERT INTO users (userID, entryPass) VALUES (?, ?)', [userID, entryPass]);
+        res.json({ success: true });
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
+      res.status(500).json({ success: false, message: "An error occurred" });
     }
-  } catch (error) {
-    console.error('Error signing up:', error);
-    res.status(500).json({ success: false, message: "An error occurred" });
   }
 });
 
@@ -65,7 +70,7 @@ app.post('/addpassword', async (req, res) => {
 
   try {
     const newPassword = {
-    //   id: uuidv4(),
+      //   id: uuidv4(),
       password,
       title,
       userID
@@ -100,31 +105,31 @@ app.get('/passwords/:userID', async (req, res) => {
 // Delete Password route
 // Delete Password route
 app.delete('/deletepassword/:id', async (req, res) => {
-    const { id } = req.params;
-    console.log(`Received request to delete password with ID: ${id}`);
-    
-    if (!id) {
-      return res.status(400).json({ success: false, message: "ID is required" });
+  const { id } = req.params;
+  console.log(`Received request to delete password with ID: ${id}`);
+
+  if (!id) {
+    return res.status(400).json({ success: false, message: "ID is required" });
+  }
+
+  try {
+    const [result] = await pool.query('DELETE FROM passwords WHERE ID = ?', [id]);
+    console.log(`Delete result: ${JSON.stringify(result)}`);
+
+    if (result.affectedRows > 0) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: "Password not found" });
     }
-    
-    try {
-      const [result] = await pool.query('DELETE FROM passwords WHERE ID = ?', [id]);
-      console.log(`Delete result: ${JSON.stringify(result)}`);
-      
-      if (result.affectedRows > 0) {
-        res.json({ success: true });
-      } else {
-        res.json({ success: false, message: "Password not found" });
-      }
-    } catch (error) {
-      console.error('Error deleting password:', error); // Log the full error object
-      res.status(500).json({ success: false, message: "An error occurred while deleting the password." });
-    }
-  });
-  
-  
-  
-  
+  } catch (error) {
+    console.error('Error deleting password:', error); // Log the full error object
+    res.status(500).json({ success: false, message: "An error occurred while deleting the password." });
+  }
+});
+
+
+
+
 
 // Start the server
 app.listen(3001, () => {
