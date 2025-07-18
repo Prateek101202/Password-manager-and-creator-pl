@@ -52,11 +52,24 @@ function PasswordGenerator() {
   }, [length, numberAllowed, charAllowed]);
 
   const copyPasswordToClipboard = useCallback(() => {
-    passwordRef.current?.select();
-    passwordRef.current?.setSelectionRange(0, 999);
-    alert("Password copied to clipboard.");
-    window.navigator.clipboard.writeText(password);
-  }, [password]);
+  const input = passwordRef.current;
+  if (!input) return;
+
+  input.select();
+  input.setSelectionRange(0, 999);
+
+  try {
+    const success = document.execCommand("copy");
+    if (success) {
+      alert("Password copied to clipboard.");
+    } else {
+      alert("Copy failed. Try manually.");
+    }
+  } catch (err) {
+    alert("Copy not supported: " + err.message);
+  }
+}, []);
+
 
   useEffect(() => {
     passwordGenerator();
