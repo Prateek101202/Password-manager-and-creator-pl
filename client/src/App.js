@@ -87,6 +87,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Login />}  />
       <Route path="/login" element={<Login />} />
       <Route path="/password-manager" element={<PasswordManager />} />
       <Route path="/show-saved-passwords" element={<ShowSavedPasswords />} />
